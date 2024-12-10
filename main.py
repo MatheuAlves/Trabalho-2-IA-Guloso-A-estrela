@@ -63,22 +63,6 @@ def tem_barreira(matriz, pos_atual, prox_pos):
             return True
     return False
 
-def testa_posicoes_futuras(caminho, pos_atual, matriz, g_atual, fim, lista_de_posicoes_futuras):
-    for movimento in movimentos:
-            prox_pos = (pos_atual[0] + movimento[0], pos_atual[1] + movimento[1])
-            
-            # Verifica se a posição está dentro dos limites da matriz e não tem barreira
-            if 0 <= prox_pos[0] < len(matriz) and 0 <= prox_pos[1] < len(matriz[0]):
-                if not tem_barreira(matriz, pos_atual, prox_pos):
-                    g = g_atual[pos_atual] + 1
-                    h = heuristica_manhattan(prox_pos, fim)
-                    f = g + h
-            
-            # Adiciona à lista aberta se for mais eficiente
-            if prox_pos not in g or g_atual < g[prox_pos]:
-                g_atual[prox_pos] = g
-                lista_de_posicoes_futuras.append((prox_pos, f))
-
 def imprime_A_estrela(caminho, caminho_valores, tempo_bfs, memoria, pico_memoria):
     print(f'Caminho A*: {caminho}')
     print(f'Caminho A*: {caminho_valores}')
@@ -99,12 +83,12 @@ def A_estrela(matriz, inicio, fim, movimentos):
     lista_de_posicoes_futuras.append((inicio, h))
     
     while lista_de_posicoes_futuras:
-        # Ordena a lista pela segunda posição (o f), pegando o elemento de menor f
+        # Ordenação da lista
         lista_de_posicoes_futuras.sort(key=lambda x: x[1])
-        pos_atual, _ = lista_de_posicoes_futuras.pop(0)  # Remove o primeiro elemento, o de menor f
+        pos_atual, _ = lista_de_posicoes_futuras.pop(0)
         
         if pos_atual == fim:
-            # Reconstrua o caminho a partir dos pais
+            # Reconstrução do caminhop
             while pos_atual is not None:
                 caminho.append(pos_atual)
                 caminho_valores.append(matriz[pos_atual[0]][pos_atual[1]])
@@ -118,7 +102,7 @@ def A_estrela(matriz, inicio, fim, movimentos):
             imprime_A_estrela(caminho, caminho_valores, tempo_total_A_estrela, memoria, pico_memoria)
             return caminho
     
-        # Testa as posições futuras a partir da posição atual
+        # Testa as posições futuras
         for movimento in movimentos:
             prox_pos = (pos_atual[0] + movimento[0], pos_atual[1] + movimento[1])
 
@@ -148,12 +132,12 @@ def guloso(matriz, inicio, fim, movimentos):
     lista_de_posicoes_futuras.append((inicio, h))
     
     while lista_de_posicoes_futuras:
-        # Ordena a lista pela heurística (h), pegando o elemento com a menor heurística
+        # Ordenação da lista
         lista_de_posicoes_futuras.sort(key=lambda x: x[1])
-        pos_atual, _ = lista_de_posicoes_futuras.pop(0)  # Remove o primeiro elemento, o de menor h
+        pos_atual, _ = lista_de_posicoes_futuras.pop(0)  
         
         if pos_atual == fim:
-            # Reconstrua o caminho a partir dos pais
+            # Reconstrução do caminhop
             while pos_atual is not None:
                 caminho.append(pos_atual)
                 caminho_valores.append(matriz[pos_atual[0]][pos_atual[1]])
@@ -167,7 +151,7 @@ def guloso(matriz, inicio, fim, movimentos):
             imprime_A_estrela(caminho, caminho_valores, tempo_total_guloso, memoria, pico_memoria)
             return caminho
     
-        # Testa as posições futuras a partir da posição atual
+        # Testa as posições futuras
         for movimento in movimentos:
             prox_pos = (pos_atual[0] + movimento[0], pos_atual[1] + movimento[1])
 
