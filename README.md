@@ -56,8 +56,8 @@ Para avaliar os algoritmos, foram medidas as seguintes métricas:
 
 | Métrica             | BFS                   | DFS                      |
 |---------------------|-----------------------|--------------------------|
-| Tempo de Execução   | 0.0016772000 segundos | 0.0001220000 segundos    |
-| Consumo de Memória  | 2.07 KB; Pico: 2.42 KB| 1.39 KB; Pico: 1.74 KB   |
+| Tempo de Execução   | 0.0018858999 segundos | 0.0002143000 segundos    |
+| Consumo de Memória  | 2.41 KB; Pico: 2.82 KB| A*: 0.84 KB; Pico: 0.91 KB   |
 | Completude          | Completo              | Completo                 |
 | Optimalidade        | Ótimo (menor caminho) | Não garante menor caminho|
 
