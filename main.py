@@ -108,12 +108,13 @@ def A_estrela(matriz, inicio, fim, movimentos):
 
             # Verifica se a posição está dentro dos limites da matriz e não tem barreira
             if 0 <= prox_pos[0] < len(matriz) and 0 <= prox_pos[1] < len(matriz[0]):
-                if prox_pos not in g_atual or g_atual[pos_atual] + 1 < g_atual[prox_pos]:
-                    g_atual[prox_pos] = g_atual[pos_atual] + 1
-                    h = heuristica_manhattan(prox_pos, fim)
-                    f = g_atual[prox_pos] + h
-                    lista_de_posicoes_futuras.append((prox_pos, f))
-                    pais[prox_pos] = pos_atual
+                if not tem_barreira(matriz, pos_atual, prox_pos):
+                    if prox_pos not in g_atual or g_atual[pos_atual] + 1 < g_atual[prox_pos]:
+                        g_atual[prox_pos] = g_atual[pos_atual] + 1
+                        h = heuristica_manhattan(prox_pos, fim)
+                        f = g_atual[prox_pos] + h
+                        lista_de_posicoes_futuras.append((prox_pos, f))
+                        pais[prox_pos] = pos_atual
 
     print('Matriz não tem solução!')
     tracemalloc.stop()
