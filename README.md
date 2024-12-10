@@ -50,11 +50,12 @@ Para avaliar os algoritmos, foram medidas as seguintes métricas:
    - A* é mais lento porque mantém informações de custo acumulado e reprocessa nós se necessário.
 
 2. **Consumo de Memória**:
-   - A Busca Gulosa consome menos memória, pois armazena menos informações no caminho.
+   - A Busca Gulosa consome menos memória, já que não armazena informações detalhadas como o custo acumulado. No entanto, em alguns casos, o consumo pode ser semelhante devido ao armazenamento de nós na lista de exploração.
    - A* utiliza memória adicional para manter o custo acumulado de cada nó.
 
 3. **Completude**:
-   - Ambos os algoritmos são completos, garantindo que encontrarão uma solução, caso ela exista.
+   - O A* é completo, garantindo que encontrará uma solução, caso ela exista, desde que o espaço de busca seja finito ou a heurística seja admissível.
+   - A Busca Gulosa pode não ser completa em casos específicos, como quando há ciclos ou desvios causados pela priorização exclusiva da heurística.
 
 4. **Optimalidade**:
    - A* é ótimo, sempre encontrando o menor caminho possível.
