@@ -11,14 +11,16 @@ O trabalho apresentado tem como objetivo implementar e comparar o desempenho de 
 Os dois algoritmos foram implementados com as seguintes características principais:
 
 - **A***:
-  - Utiliza a soma do custo acumulado até o nó atual e da heurística para priorizar os nós.
-  - Garante a melhor solução possível, se existente.
+  - Utiliza a soma do custo acumulado até o nó atual g(n) e da heurística h(n) para priorizar os nós, calculando f(n) = g(n) + h(n).
+  - Garante a melhor solução possível, se houver uma, desde que a heurística seja admissível (não superestima o custo real).
+  - No código, os nós são priorizados ao ordenar uma lista com base no menor valor de f(n), permitindo explorar os caminhos mais promissores primeiro.
+
   
 - **Busca Gulosa**:
-  - Prioriza exclusivamente os nós com menor valor heurístico, ignorando o custo acumulado.
-  - Mais eficiente em termos de memória, mas pode não encontrar o caminho mais curto.
+  - Prioriza exclusivamente os nós com menor valor heurístico h(n), ignorando o custo acumulado g(n).
+  - Pode ser mais eficiente em termos de tempo e memória, já que não mantém informações detalhadas sobre o custo acumulado. No entanto, pode não encontrar o caminho mais curto, pois considera apenas a proximidade ao objetivo, sem avaliar o custo total do caminho.
+  - No código, os nós são priorizados ao ordenar uma lista com base no menor valor de h(n), explorando os nós aparentemente mais próximos do objetivo.
 
-Ambos utilizam uma fila de prioridade (`heapq`) para explorar os nós e verificam a validade do movimento para evitar obstáculos.
 
 ---
 
