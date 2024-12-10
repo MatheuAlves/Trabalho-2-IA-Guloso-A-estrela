@@ -1,20 +1,24 @@
-﻿# Trabalho 2 de IA - Busca Gulosa e A*
+# Trabalho 2 - Inteligência Artificial
 
 Participantes: Matheus Alves e Pablo Sousa
 
-## 📚 Contextualização
-
-O trabalho apresentado tem como objetivo implementar e comparar o desempenho de dois algoritmos de busca (Busca Gulosa e A*) aplicados ao problema clássico de labirinto. A atividade visa avaliar aspectos de desempenho como tempo de execução, consumo de memória, completude e optimalidade dos algoritmos escolhidos. A partir desses resultados, busca-se analisar e discutir por que determinados algoritmos apresentam vantagens em certas métricas e condições do problema, oferecendo uma compreensão mais profunda das técnicas de busca na área de Inteligência Artificial.
+## Contextualização
+O trabalho apresentado tem como objetivo implementar e comparar o desempenho de dois algoritmos de busca (A* e Busca Gulosa) aplicados ao problema clássico de labirinto. A atividade visa avaliar aspectos de desempenho como tempo de execução, consumo de memória, completude e optimalidade dos algoritmos escolhidos. A partir desses resultados, busca-se analisar e discutir por que determinados algoritmos apresentam vantagens em certas métricas e condições do problema, oferecendo uma compreensão mais profunda das técnicas de busca na área de Inteligência Artificial.
 
 ---
 
 ## 🧑‍💻 1. Implementação
+Os dois algoritmos foram implementados com as seguintes características principais:
 
-Para resolver o problema de busca por um caminho em uma matriz, foram implementados os algoritmos de **Busca em Largura (BFS)** e **Busca em Profundidade (DFS)**. Cada célula da matriz representa um nó. As casas que não podem ser acessadas contem uma barreira que foi implementada especificando os pontos onde o movimento não era possível. Abaixo uma breve descrição de cada algoritmo:
-
-- **BFS**: Explora o grafo em largura, visitando todos os vizinhos de um nó antes de avançar para o próximo nível. Isso garante que o primeiro caminho encontrado é o mais curto em termos de movimentos, sendo ótimo em grafos não ponderados.
+- **A***:
+  - Utiliza a soma do custo acumulado até o nó atual e da heurística para priorizar os nós.
+  - Garante a melhor solução possível, se existente.
   
-- **DFS**: Explora o grafo em profundidade, tentando avançar o máximo possível por um caminho antes de retroceder. DFS não garante o menor caminho, mas é útil para explorar todas as rotas possíveis. Em termos de memória, DFS geralmente utiliza menos espaço em grafos grandes.
+- **Busca Gulosa**:
+  - Prioriza exclusivamente os nós com menor valor heurístico, ignorando o custo acumulado.
+  - Mais eficiente em termos de memória, mas pode não encontrar o caminho mais curto.
+
+Ambos utilizam uma fila de prioridade (`heapq`) para explorar os nós e verificam a validade do movimento para evitar obstáculos.
 
 ---
 
@@ -26,76 +30,45 @@ Para avaliar os algoritmos, foram medidas as seguintes métricas:
 - **Completude**: Habilidade do algoritmo de sempre encontrar um caminho, se ele existir.
 - **Optimalidade**: Verifica se o algoritmo encontra o menor caminho.
 
-### Resultados das Medições:
-
-#### BFS
-- **Tempo Médiode Execução**: 0.0016772000 segundos
-- **Consumo Médio de Memória**: 2.07 KB; Pico: 2.42 KB
-- **Completude**: O algoritmo é completo (sempre encontra o caminho se existir)
-- **Optimalidade**: O caminho encontrado é o menor possível
-<br>
-
-<div style="text-align: center;">
-    <img src="https://github.com/MatheuAlves/Trabalho-1-IA-Compara-o-BFS-DFS/raw/main/BFS.png" alt="BFS">
-</div>
-
-#### DFS
-- **Tempo Médio de Execução**: 0.0001220000 segundos
-- **Consumo Médio de Memória**: 1.39 KB; Pico: 1.74 KB
-- **Completude**: O algoritmo é completo (se existir caminho, ele encontrará)
-- **Optimalidade**: DFS não garante a melhor solução (menor caminho) por causa da profundidade
-<br>
-
-<div style="text-align: center;">
-    <img src="https://github.com/MatheuAlves/Trabalho-1-IA-Compara-o-BFS-DFS/raw/main/DFS.png" alt="DFS">
-</div>
-
----
-
 ## 📈 3. Resultados e Análise Comparativa
 
-| Métrica             | BFS                   | DFS                      |
+| Métrica             | A*                   | Busca Gulosa                      |
 |---------------------|-----------------------|--------------------------|
 | Tempo de Execução   | 0.0018858999 segundos | 0.0002143000 segundos    |
 | Consumo de Memória  | 2.41 KB; Pico: 2.82 KB| A*: 0.84 KB; Pico: 0.91 KB   |
 | Completude          | Completo              | Completo                 |
 | Optimalidade        | Ótimo (menor caminho) | Não garante menor caminho|
 
-### Análise dos Resultados
+---
+
+## 📈 3. Análise dos Resultados
 
 1. **Tempo de Execução**:
-   - O DFS apresentou menor tempo de execução, pois explora diretamente até o fim sem verificar todas as alternativas antes de avançar. Isso é vantajoso em problemas pequenos ou quando o caminho está próximo do ponto de partida.
-   - O BFS, por sua vez, verifica cada nível em largura, o que o torna um pouco mais lento, mas garante o menor caminho.
+   - A Busca Gulosa foi mais rápida, pois realiza menos verificações ao priorizar exclusivamente o valor heurístico. 
+   - A* é mais lento porque mantém informações de custo acumulado e reprocessa nós se necessário.
 
 2. **Consumo de Memória**:
-   - O DFS usou menos memória que o BFS, pois mantém apenas o caminho atual e nós visitados. 
-   - O BFS mantém todos os nós do nível atual na fila, aumentando o uso de memória, especialmente em grafos grandes.
+   - A Busca Gulosa consome menos memória, pois armazena menos informações no caminho.
+   - A* utiliza memória adicional para manter o custo acumulado de cada nó.
 
 3. **Completude**:
-   - Ambos são completos para o problema, ou seja, encontram um caminho, se houver, da posição inicial até a final.
+   - Ambos os algoritmos são completos, garantindo que encontrarão uma solução, caso ela exista.
 
 4. **Optimalidade**:
-   - O BFS é ótimo e encontra o menor caminho em termos de passos.
-   - O DFS não garante optimalidade e pode encontrar caminhos mais longos pela forma de percorrer a matriz por profundidade.
-
-### Discussão do Desempenho em Diferentes Condições
-
-- **Problemas de Menor Caminho**: O BFS é preferível para encontrar o menor caminho em grafos não ponderados.
-  
-- **Limitação de Recursos de Memória**: O DFS é ideal para situações de baixa memória ou quando queremos uma exploração completa do grafo sem precisar do menor caminho.
-  
-- **Exploração Completa**: Em cenários onde é necessário explorar todos os caminhos, o DFS é vantajoso pelo menor consumo de memória.
+   - A* é ótimo, sempre encontrando o menor caminho possível.
+   - Busca Gulosa, por ignorar o custo acumulado, pode retornar caminhos mais longos.
 
 ---
 
 ## 💻 4. Conclusão e Sugestões de Melhorias
 
-Ambos os algoritmos foram eficazes, mas apresentaram vantagens e desvantagens específicas:
+- **A*** é mais robusto e adequado para problemas onde a qualidade da solução (caminho mais curto) é crucial. O custo em tempo e memória é justificado por sua optimalidade.
+- **Busca Gulosa** é útil quando o tempo e a memória são limitados, e uma solução subótima é aceitável.
 
-- **BFS** é ideal para encontrar o menor caminho em grafos não ponderados, mas consome mais memória.
+### Possíveis Melhorias
+
+- Para **A***:
+  - Implementar uma heurística adaptativa que ajusta dinamicamente os custos pode reduzir o tempo de execução em cenários específicos.
   
-- **DFS** apresentou menor consumo de memória e tempo de execução ligeiramente melhor no exemplo dado, mas não garante optimalidade.
-
-### Sugestões de Melhoria:
-1. **Usar Algoritmos Mais Inteligentes (como o A\*)**: O A* é uma opção interessante porque combina o melhor dos dois mundos: ele busca o menor caminho, como o BFS, mas tenta ser mais rápido e usar menos memória, aproveitando informações adicionais sobre o problema.
-2. **Limitar a Profundidade no DFS**: Uma ideia é ajustar o DFS para que ele só vá até uma certa profundidade antes de voltar. Isso pode economizar tempo e evitar que o algoritmo explore caminhos desnecessariamente longos.
+- Para **Busca Gulosa**:
+  - Combinar com uma validação de custo acumulado em nós críticos pode melhorar a qualidade do caminho encontrado.
