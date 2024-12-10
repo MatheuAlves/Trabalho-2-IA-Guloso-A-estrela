@@ -71,7 +71,7 @@ Para avaliar os algoritmos, foram medidas as seguintes métricas:
 ### Possíveis Melhorias
 
 - Para **A***:
-  - Implementar uma heurística adaptativa que ajusta dinamicamente os custos pode reduzir o tempo de execução em cenários específicos.
+  - Tornar a heurística mais inteligente e capaz de se ajustar durante a execução pode ajudar a resolver problemas mais rapidamente em situações específicas.
   
 - Para **Busca Gulosa**:
-  - Combinar com uma validação de custo acumulado em nós críticos pode melhorar a qualidade do caminho encontrado.
+  - Incluir uma checagem extra para considerar o custo acumulado em pontos importantes pode melhorar a qualidade do caminho encontrado, tornando-o mais eficiente.
